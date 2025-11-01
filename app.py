@@ -15,5 +15,14 @@ def create_task():
     tasks.append(new_task)
     return jsonify(new_task.to_dict()), 201
 
+@app.route('/tasks', methods=['GET'])
+def get_tasks():
+    task_list = [task.to_dict() for task in tasks]
+    output = {
+        "tasks": task_list,
+        "total": len(task_list)
+    }
+    return jsonify(output), 200
+
 if __name__ == '__main__':
     app.run(debug=True)
